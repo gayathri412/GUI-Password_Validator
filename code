@@ -1,0 +1,35 @@
+from tkinter import *
+from functools import partial
+
+# Function to validate password
+def validatepassword(ep, cp):
+    print("Entered password = ", ep.get())
+    print("Confirmed password = ", cp.get())
+    if ep.get() == cp.get():
+        Label(root, text="Password Confirmed", fg="green").grid(row=5, column=0, columnspan=2)
+    else:
+        Label(root, text="Password not matched", fg="red").grid(row=5, column=0, columnspan=2)
+
+# Main Tkinter window
+root = Tk()
+root.geometry('300x150')
+root.title('Tkinter Password Validator')
+
+# UI Elements
+Label(root, text="Enter Password").grid(row=0, column=0, padx=10, pady=5)
+ep = StringVar()
+passwordEntry = Entry(root, textvariable=ep, show='*')
+passwordEntry.grid(row=0, column=1, padx=10, pady=5)
+
+Label(root, text="Confirm Password").grid(row=1, column=0, padx=10, pady=5)
+cp = StringVar()
+confirmpasswordEntry = Entry(root, textvariable=cp, show='*')
+confirmpasswordEntry.grid(row=1, column=1, padx=10, pady=5)
+
+# Button for validation
+validatepassword_func = partial(validatepassword, ep, cp)
+checkbutton = Button(root, text="Check", command=validatepassword_func)
+checkbutton.grid(row=4, column=0, columnspan=2, pady=10)
+
+# Run the Tkinter loop
+root.mainloop()
